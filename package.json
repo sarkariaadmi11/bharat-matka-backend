@@ -1,0 +1,78 @@
+{
+  "name": "betting",
+  "version": "1.0.0",
+  "description": "Betting Backend - Express.js API with MongoDB",
+  "main": "src/app/server.js",
+  "author": "Shubham Singh",
+  "license": "ISC",
+  "engines": {
+    "node": "20.x",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "dev": "nodemon src/app/server.js",
+    "start": "node src/app/server.js",
+    "start:staging": "cross-env NODE_ENV=staging node src/app/server.js",
+    "start:prod": "cross-env NODE_ENV=production node src/app/server.js",
+    "db:migrate:up": "node scripts/migrate.js up",
+    "db:migrate:down": "node scripts/migrate.js down",
+    "db:migrate:status": "node scripts/migrate.js status",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint . --ext .js --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:related": "jest --findRelatedTests --passWithNoTests",
+    "test:unit": "jest --runInBand tests/unit",
+    "test:integration": "jest --runInBand tests/integration",
+    "test:e2e": "jest --runInBand tests/e2e",
+    "lint:staged": "lint-staged",
+    "validate:precommit": "lint-staged",
+    "validate:prepush": "npm run test",
+    "prepare": "node .husky/install.mjs"
+  },
+  "dependencies": {
+    "@scalar/express-api-reference": "^0.8.46",
+    "bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "firebase-admin": "^12.7.0",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.3",
+    "luxon": "^3.7.2",
+    "module-alias": "^2.2.3",
+    "mongodb": "^7.1.1",
+    "mongoose": "^9.0.0",
+    "node-cron": "^4.2.1",
+    "pino": "^9.6.0",
+    "pino-pretty": "^13.1.3",
+    "pug": "^3.0.3",
+    "render": "^0.1.4"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^9.39.4",
+    "husky": "^9.1.7",
+    "jest": "^30.3.0",
+    "lint-staged": "^16.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/betting.git"
+  },
+  "keywords": [
+    "express",
+    "mongodb",
+    "rest-api",
+    "nodejs"
+  ],
+  "lint-staged": {
+    "*.{js,cjs,mjs}": [
+      "eslint --fix",
+      "jest --findRelatedTests --passWithNoTests"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+/* Subtle card borders and shadow for Scalar sections */
+.scalar-app .card,
+.scalar-app .section-card,
+.scalar-app [class*='card'] {
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+}

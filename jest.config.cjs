@@ -1,0 +1,26 @@
+module.exports = {
+  testEnvironment: 'node',
+  roots: ['<rootDir>/tests'],
+  testMatch: [
+    '<rootDir>/tests/unit/**/*.test.js',
+    '<rootDir>/tests/integration/**/*.test.js',
+    '<rootDir>/tests/e2e/**/*.test.js',
+  ],
+  clearMocks: true,
+  moduleNameMapper: {
+    '^@app$': '<rootDir>/src/app',
+    '^@app/(.*)$': '<rootDir>/src/app/$1',
+    '^@config$': '<rootDir>/src/config',
+    '^@config/(.*)$': '<rootDir>/src/config/$1',
+    '^@domain$': '<rootDir>/src/domain',
+    '^@domain/(.*)$': '<rootDir>/src/domain/$1',
+    '^@infra$': '<rootDir>/src/infrastructure',
+    '^@infra/(.*)$': '<rootDir>/src/infrastructure/$1',
+    '^@middleware$': '<rootDir>/src/middleware',
+    '^@middleware/(.*)$': '<rootDir>/src/middleware/$1',
+    '^@modules$': '<rootDir>/src/modules',
+    '^@modules/(.*)$': '<rootDir>/src/modules/$1',
+    '^@utils$': '<rootDir>/src/utils',
+    '^@utils/(.*)$': '<rootDir>/src/utils/$1',
+  },
+};

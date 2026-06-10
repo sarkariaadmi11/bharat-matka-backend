@@ -1,0 +1,15 @@
+﻿{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "paths": {
+      "@config/*": ["src/config/*"],
+      "@domain/*": ["src/domain/*"],
+      "@infra/*": ["src/infrastructure/*"],
+      "@modules/*": ["src/modules/*"],
+      "@middleware/*": ["src/middleware/*"],
+      "@utils/*": ["src/utils/*"],
+      "@": ["."]
+    }
+  }
+}

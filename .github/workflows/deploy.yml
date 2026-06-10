@@ -1,0 +1,51 @@
+name: CI/CD to Render
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  validate-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Lint
+        run: npm run lint
+
+      - name: Run Unit Tests
+        run: npm run test:unit
+
+      - name: Run Integration Tests
+        run: npm run test:integration
+
+      # Deploy DEV
+      - name: Deploy to Render Dev
+        if: github.ref == 'refs/heads/develop'
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_DEV }}
+        run: |
+          echo "Deploying to DEV..."
+          curl -X POST "$RENDER_DEPLOY_HOOK"
+
+      # Deploy PROD
+      - name: Deploy to Render Production
+        if: github.ref == 'refs/heads/main'
+        env:
+          RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_MAIN }}
+        run: |
+          echo "Deploying to PRODUCTION..."
+          curl -X POST "$RENDER_DEPLOY_HOOK"

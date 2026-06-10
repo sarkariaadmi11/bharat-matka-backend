@@ -1,0 +1,54 @@
+﻿const express = require('express');
+
+const authRoutes = require('../modules/auth/auth.routes');
+const betRoutes = require('../modules/bets/bets.routes');
+const paymentRoutes = require('../modules/payments/payment.routes');
+const accountRoutes = require('../modules/users/users.routes');
+const walletRoutes = require('../modules/wallet/wallet.routes');
+const marketRoutes = require('../modules/markets/markets.routes');
+const adminResultRoutes = require('../modules/admin/results/result.routes');
+const adminSessionRoutes = require('../modules/sessions/adminSessions.routes');
+const systemRoutes = require('../modules/system/system.routes');
+const gameSessionRoutes = require('../modules/sessions/sessions.routes');
+const gameResultRoutes = require('../modules/results/results.routes');
+const gameRatesRoutes = require('../modules/markets/gameRates.routes');
+const logRoutes = require('../modules/admin/logs/logs.routes');
+const notificationRoutes = require('../modules/notifications/notification.routes');
+const adminPaymentRoutes = require('../modules/admin/withdrawals/adminPayment.routes');
+const adminUserRoutes = require('../modules/admin/users/adminUser.routes');
+const adminMarketRoutes = require('../modules/admin/markets/adminMarkets.routes');
+const adminGameTypeRoutes = require('../modules/admin/gameTypes/adminGameTypes.routes');
+const adminReportRoutes = require('../modules/admin/reports/adminReports.routes');
+const adminAnalyticsRoutes = require('../modules/admin/analytics/adminAnalytics.routes');
+const adminNotificationRoutes = require('../modules/admin/notifications/adminNotifications.routes');
+const adminSettingsRoutes = require('../modules/admin/settings/adminSettings.routes');
+const motorRoutes = require('../modules/motor/motor.routes');
+
+const router = express.Router();
+
+router.use('/auth', authRoutes);
+router.use('/payments', paymentRoutes);
+router.use('/bets', betRoutes);
+router.use('/markets', marketRoutes);
+router.use('/wallet', walletRoutes);
+router.use('/admin/results', adminResultRoutes);
+router.use('/admin/Results', adminResultRoutes);
+router.use('/admin/payments', adminPaymentRoutes);
+router.use('/admin/markets', adminMarketRoutes);
+router.use('/admin/game-types', adminGameTypeRoutes);
+router.use('/admin/reports', adminReportRoutes);
+router.use('/admin/analytics', adminAnalyticsRoutes);
+router.use('/admin/notifications', adminNotificationRoutes);
+router.use('/admin/sessions', adminSessionRoutes);
+router.use('/admin/users', adminUserRoutes);
+router.use('/admin/settings', adminSettingsRoutes);
+router.use('/sessions', gameSessionRoutes);
+router.use('/games', gameResultRoutes);
+router.use('/game-types', gameRatesRoutes);
+router.use('/admin/logs', logRoutes);
+router.use('/notifications', notificationRoutes);
+router.use('/motor', motorRoutes);
+router.use('/', accountRoutes);
+router.use('/system', systemRoutes);
+
+module.exports = router;

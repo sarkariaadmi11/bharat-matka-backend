@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Environment variables (Protecting secrets)
+.env
+.env*
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+.nyc_output/
+coverage/
+
+# Scripts and Seeder
+seed
+
+# Logs and System files
+*.log
+.DS_Store
+.vscode/settings.json
+.vscode/**
+.idea/
+*.swp
+*.swo
+*~
+firebase-admin.json
+
+# Cache
+.npm
+.eslintcache
+
+# git 
+.github/copilot-instructions.md
+
+#agents
+ai-instruction.md
+
+src/scripts/bootstrap-admin.js
+.claude/settings.local.json

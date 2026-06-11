@@ -90,8 +90,8 @@ All errors follow:
 }
 `,
     contact: {
-      name: 'Shubham Singh',
-      email: 'shubham.singh325601@gmail.com',
+      name: 'bharat-matka team',
+      email: 'sarkariaadmi11@gmail.com',
     },
   },
   servers: [

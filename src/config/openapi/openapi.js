@@ -2,51 +2,6 @@ const swaggerJSDoc = require('swagger-jsdoc');
 const config = require('../environment');
 const schemas = require('./schema');
 
-// const swaggerDefinition = {
-//   openapi: '3.0.0',
-//   info: {
-//     title: 'Mahadev Matka API Documentation',
-//     version: config.API_VERSION,
-//     description:
-//       'This is the API documentation for the Mahadev Matka application. It provides endpoints for user management and authentication.',
-//     contact: {
-//       name: 'Shubham Singh',
-//       email: 'Shubham.singh325601@gmail.com',
-//     },
-//   },
-//   servers: [
-//     {
-//       url: `${config.API_URI}/api/${config.API_VERSION}`,
-//       description: 'Development server',
-//     },
-//   ],
-//   components: {
-//     securitySchemes: {
-//       bearerAuth: {
-//         type: 'http',
-//         scheme: 'bearer',
-//         bearerFormat: 'JWT',
-//       },
-//     },
-//     schemas,
-//   },
-//   security: [
-//     {
-//       bearerAuth: [],
-//     },
-//   ],
-// };
-
-// const options = {
-//   swaggerDefinition,
-//   apis: [
-//     './routes/*.js',
-//   ],
-// };
-
-// const swaggerSpec = swaggerJSDoc(options);
-
-// module.exports = swaggerSpec;
 const swaggerDefinition = {
   openapi: '3.0.3',
 
@@ -87,8 +42,8 @@ All errors follow:
 Refer to individual endpoints for request/response examples.
     `,
     contact: {
-      name: 'Shubham Singh',
-      email: 'shubham.singh325601@gmail.com',
+      name: 'bharat-matka team',
+      email: 'sarkariaadmi11@gmail.com',
     },
   },
 

@@ -6,6 +6,7 @@ All API route mounting starts in `src/app/routes.js` and is prefixed in `src/app
 
 ## Module Mounts
 
+
 Examples:
 - `/auth`
 - `/bets`

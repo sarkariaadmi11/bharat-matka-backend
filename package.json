@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Betting Backend - Express.js API with MongoDB",
   "main": "src/app/server.js",
-  "author": "Shubham Singh",
+  "author": "bharat-matka team",
   "license": "ISC",
   "engines": {
     "node": "20.x",

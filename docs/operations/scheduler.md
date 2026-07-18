@@ -8,10 +8,14 @@ The app uses **node-cron** for in-process scheduling. Two jobs run on a fixed ca
 
 | Job | Schedule | What it does |
 |-----|----------|--------------|
-| Daily Market Session Creator | `1 0 * * *` — 12:01 AM IST | Creates game sessions for all active markets at the start of each business day |
+| Daily Market Session Creator | `*/10 * * * *` — every 10 min | Creates game sessions for all active markets once prior sessions' results are declared (or their grace period has elapsed) |
 | Pending Tasks Processor | `*/10 * * * *` — every 10 min | Picks up and executes all due `EventTask` records (market locks, phase changes, settlements) |
 
 All times are expressed in **IST (Asia/Kolkata)**. The server's physical timezone (Singapore / UTC+8) has no effect.
+
+### Idempotency & resumability
+
+Both jobs are designed to be safely re-run on every tick, with no long-running in-process waits. `Daily Market Session Creator` re-checks `areAllSessionsResultsDeclared()` on each tick and simply no-ops (logging `scheduler.daily_session_creation_deferred`) until it passes, rather than sleeping in-process for hours — a prior version used a `setTimeout`-based defer that silently lost the pending job on any process restart (deploy, crash, container recycle), which meant sessions were often never created automatically. `createDailySessionsForAllMarkets()` is idempotent per market/day, so repeated ticks after sessions already exist are cheap no-ops.
 
 ---
 

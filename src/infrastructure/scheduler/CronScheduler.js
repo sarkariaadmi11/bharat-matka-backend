@@ -8,7 +8,7 @@ const logger = require('@utils/logger');
 const SCHEDULES = [
   {
     job: DailySessionCreationJob,
-    expression: '1 0 * * *',    // 12:01 AM IST every day
+    expression: '*/10 * * * *', // every 10 minutes — idempotent, resumable across restarts
   },
   {
     job: PendingTasksProcessorJob,

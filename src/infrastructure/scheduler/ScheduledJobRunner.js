@@ -29,6 +29,7 @@ class ScheduledJobRunner {
     }
 
     if (this.activeJobs.has(jobName)) {
+      logger.warn({ message: 'scheduler.job_skipped_already_active', jobName, triggeredBy });
       return;
     }
 

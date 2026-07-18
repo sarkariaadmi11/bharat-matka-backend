@@ -97,6 +97,28 @@ describe('ScheduledJobRunner', () => {
       await first;
     });
 
+    test('logs a warning when a trigger is skipped because the job is already active', async () => {
+      let resolveRun;
+      const run = jest.fn().mockReturnValue(new Promise((res) => {
+        resolveRun = res;
+      }));
+      runner.register(makeJob('Slow Job', run));
+
+      const first = runner.trigger('Slow Job');
+      await runner.trigger('Slow Job', 'http');
+
+      expect(mockLogger.warn).toHaveBeenCalledWith(
+        expect.objectContaining({
+          message: 'scheduler.job_skipped_already_active',
+          jobName: 'Slow Job',
+          triggeredBy: 'http',
+        }),
+      );
+
+      resolveRun();
+      await first;
+    });
+
     test('allows the job to run again after the previous run finishes', async () => {
       const run = jest.fn().mockResolvedValue(undefined);
       runner.register(makeJob('Sequential Job', run));

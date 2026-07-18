@@ -29,18 +29,28 @@ describe('CronScheduler', () => {
     expect(mockRunner.register).toHaveBeenCalledTimes(2);
   });
 
-  test('schedules daily session creation at 12:01 AM', () => {
+  test('schedules daily session creation every 10 minutes', async () => {
     load().start();
 
-    const [expression] = mockCronSchedule.mock.calls.find(([expr]) => expr === '1 0 * * *') || [];
-    expect(expression).toBe('1 0 * * *');
+    const dailySessionCall = mockCronSchedule.mock.calls.find((call) => {
+      const [expr, callback] = call;
+      if (expr !== '*/10 * * * *') {
+        return false;
+      }
+      callback();
+      return mockRunner.trigger.mock.calls.some(
+        ([jobName]) => jobName === 'Daily Market Session Creator',
+      );
+    });
+
+    expect(dailySessionCall).toBeDefined();
   });
 
   test('schedules pending task processing every 10 minutes', () => {
     load().start();
 
-    const [expression] = mockCronSchedule.mock.calls.find(([expr]) => expr === '*/10 * * * *') || [];
-    expect(expression).toBe('*/10 * * * *');
+    const tenMinuteCalls = mockCronSchedule.mock.calls.filter(([expr]) => expr === '*/10 * * * *');
+    expect(tenMinuteCalls.length).toBe(2);
   });
 
   test('all cron jobs use IST timezone', () => {
@@ -55,9 +65,9 @@ describe('CronScheduler', () => {
   test('cron callback triggers the correct job via ScheduledJobRunner', async () => {
     load().start();
 
-    // Simulate node-cron firing the daily session callback
+    // Both jobs are scheduled at '*/10 * * * *'; the first registered call is the daily session creator
     const dailyCronCallback = mockCronSchedule.mock.calls.find(
-      ([expr]) => expr === '1 0 * * *',
+      ([expr]) => expr === '*/10 * * * *',
     )[1];
 
     await dailyCronCallback();
@@ -68,11 +78,10 @@ describe('CronScheduler', () => {
   test('cron callback triggers pending tasks processor', async () => {
     load().start();
 
-    const heartbeatCronCallback = mockCronSchedule.mock.calls.find(
-      ([expr]) => expr === '*/10 * * * *',
-    )[1];
+    const tenMinuteCalls = mockCronSchedule.mock.calls.filter(([expr]) => expr === '*/10 * * * *');
+    const pendingTasksCallback = tenMinuteCalls[1][1];
 
-    await heartbeatCronCallback();
+    await pendingTasksCallback();
 
     expect(mockRunner.trigger).toHaveBeenCalledWith('Pending Tasks Processor', 'cron');
   });
